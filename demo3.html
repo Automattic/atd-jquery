@@ -1,0 +1,53 @@
+<html>
+ <head>
+ <title>AtD/jQuery Demo - Don't Mess!</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+ <!-- 0. do yourself a favor and make CSS that applies to both the textarea and div -->
+ <style>
+
+ .input
+ {
+    font-size: 100%;
+    width: 400px;
+    height: 200px;
+    font-family: times;
+    border: 1px solid black;
+    padding: 2px;
+    margin: 2px;
+ }
+
+ </style>
+
+ <!-- 1. include jQuery ... naturally none of this works without jQuery -->
+ <script src="http://code.jquery.com/jquery-1.4.2.js"></script>
+
+ <!-- 2. include the AtD class with everything you need to make good stuff happen -->
+ <script src="scripts/jquery.atd.textarea.js"></script>
+
+ <!-- 3. this script is a hack that allows cross-domain AJAX -->
+ <script src="scripts/csshttprequest.js"></script>
+
+ <!-- 4. this CSS file contains the style information for highlighted errors -->
+ <link rel="stylesheet" type="text/css" media="screen" href="css/atd.css" />
+
+ <!-- 5. attach the proofreader to all textareas on the page -->
+ <script>
+	jQuery(function() {
+		AtD.rpc_css = 'http://www.polishmywriting.com/dev/atd-jquery/server/proxycss.php?data=';
+		$('textarea').addProofreader();
+	});
+ </script>
+
+ </head>
+ <body>
+ <p>This demo demonstrates how to use <a href="http://www.afterthedeadline.com">AtD</a> to check spelling and grammar in a textarea.</p>
+
+  <form action="http://127.0.0.1" method="GET">
+  <textarea name="killer" id="textInput" class="input">The purpoce of a spell checker is to check the text four spelling and typeing errors. The checker finds errors througout the text. 
+
+When the spell checker finds an questionable word, it highlights it and suggests the mpst likely variants too replace the questionable word. You can select the variant and replace the wrrd or leave the word unanged.</textarea>
+   <input type="Submit">
+  </form>
+ </body>
+</html>

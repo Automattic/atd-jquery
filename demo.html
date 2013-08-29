@@ -1,0 +1,52 @@
+<html>
+ <head>
+ <title>AtD/jQuery Demo - Don't Mess!</title>
+ <script language="javascript">
+ function check()
+ {
+    AtD.checkCrossAJAX('preview', 
+    {
+       success : function(errorCount) 
+       {
+          if (errorCount == 0)
+          {
+             alert("No writing errors were found");
+          }
+       },
+
+       error : function(reason)
+       {
+          alert(reason);
+       }
+    });
+ }
+ </script>
+
+ <!-- there are four things you need to make AtD work for you, they are: -->
+
+ <!-- 1. include jQuery ... naturally none of this works without jQuery -->
+ <script src="http://code.jquery.com/jquery-1.4.2.js"></script>
+ 
+ <!-- 2. include the AtD class with everything you need to make good stuff happen -->
+ <script src="scripts/jquery.atd.js"></script>
+
+ <!-- 3. this script is a hack that allows cross-domain AJAX -->
+ <script src="scripts/csshttprequest.js"></script>
+
+ <!-- 4. this CSS file contains the style information for highlighted errors -->
+ <link rel="stylesheet" type="text/css" media="screen" href="css/atd.css" />
+
+ </head>
+ <body>
+ <p>This demo shows how to use <a href="http://www.afterthedeadline.com">AtD</a> to check spelling and grammar in a div.</p>
+
+ <div id="preview">The purpoce of a spell checker is to check the text four spelling 
+ and typeing errors. The checker finds errors througout the text. When the spell 
+ checker finds an questionable word, it highlights it and suggests the mpst likely 
+ variants too replace the questionable word. You can select the variant and replace 
+ the wrrd or leave the word unanged.</div>
+
+ <p><a href="javascript:check()">Spell check!</a></p>
+
+ </body>
+</html>

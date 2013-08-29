@@ -1,0 +1,59 @@
+<html>
+ <head>
+ <title>AtD/jQuery Demo - Don't Mess!</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+ <style>
+
+ .input
+ {
+    font-size: 100%;
+    width: 600px;
+    height: 200px;
+    font-family: times;
+    border: 1px solid black;
+    padding: 2px;
+    margin: 2px;
+ }
+
+ </style>
+ <script src="http://code.jquery.com/jquery-1.4.2.js"></script>
+ <script src="scripts/jquery.atd.textarea.js"></script>
+ <script src="scripts/csshttprequest.js"></script>
+ <link rel="stylesheet" type="text/css" media="screen" href="css/atd.css" />
+ <script>
+ function acceptAllChanges(id)
+ {
+     var parent = AtD.core;
+
+     AtD.core.map( AtD.core.findSpans( jQuery('#' + id) ).reverse(), 
+        function(n) 
+        {
+           if (parent.isMarkedNode(n))
+           {
+               var suggestions = parent.findSuggestion(n);
+               if (suggestions != undefined && suggestions.suggestions != undefined && suggestions.suggestions.length > 0)
+                  parent.applySuggestion(n, suggestions.suggestions[0]);
+           }
+        }
+     );
+ }
+
+ function check()
+ {
+    AtD.rpc = 'http://www.polishmywriting.com/dev/atd-jquery/server/proxy.php?url=';
+    AtD.api_key = 'blah';
+    AtD.checkTextArea('textInput', 'checkLink', 'Edit Text');
+ }
+ </script>
+
+ </head>
+ <body>
+<p>This demo applies all suggestions to the specified text. :)</p>
+ <textarea id="textInput" class="input">The purpoce of a spell checker is to check the text four spelling and typeing errors. The checker finds errors througout the text. 
+When the spell checker finds an questionable word, it highlights it and suggests the mpst likely variants too replace the questionable word. You can select the variant and replace the wrrd or leave the word unanged.</textarea>
+
+ <p><img src="images/atdbuttontr.gif"><a href="javascript:check()" id="checkLink">Check Text</a> | <a href="javascript:acceptAllChanges('textInput')">Accept All</a></p>
+
+ </body>
+</html>
