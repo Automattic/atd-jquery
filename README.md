@@ -14,9 +14,13 @@ Automattic no longer supports this library.  We're putting it on Github so that 
 
 The API above gives you full control over what AtD does. If you'd like to get going quicker and you have a basic form, then the jQuery style API is what you want. To attach AtD to a textarea:
 
-   <pre>$(textarea).addProofreader({ edit_text_content: 'Edit Text', proofread_content: 'Proofread' );</pre>
-
-   <p>This call will also hook the parent form's submit event to restore the textarea for you.
+```js
+$('textarea').addProofreader({
+	edit_text_content: 'Edit Text', 
+	proofread_content: 'Proofread'
+});
+```
+<p>This call will also hook the parent form's submit event to restore the textarea for you.
 
 You can customize the HTML used for the proofread and edit text links. If you want to communicate using a proxy, set AtD.rpc and AtD.api_key to the appropriate values and the proofreader will use that communication method instead.
 
@@ -37,7 +41,8 @@ The best way to learn to use the AtD API is to look at the examples and adapt th
 
 To localize the strings in this extension, create an object with the localized strings. Here is an example:
 
-<pre>var my_plugin_strings = {
+```js
+var my_plugin_strings = {
    menu_title_spelling: "Spelling",
    menu_title_repeated_word: "Repeated  Word",
    menu_title_no_suggestions: "No suggestions",
@@ -49,11 +54,14 @@ To localize the strings in this extension, create an object with the localized s
    message_no_errors_found: "No writing errors were found.",
    message_server_error_short: "There was a problem communicating with the After the Deadline service.",
    dialog_replace_selection: "Replace selection with:"
-};</pre>
+};
+```
 
 Then make AtD use these strings:
 
-   <pre>AtD.addI18n(my_plugin_strings);</pre>
+```js
+AtD.addI18n(my_plugin_strings);
+```
 
 These string labels are compatible with the [AtD/TinyMCE extension](http://www.afterthedeadline.com/download.slp?platform=TinyMCE).
 
