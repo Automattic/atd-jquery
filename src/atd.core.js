@@ -18,7 +18,7 @@ function AtDCore() {
 
 	/* Localized strings */
 	this.i18n = {};
-};
+}
 
 /*
  * Internationalization Functions
@@ -286,7 +286,7 @@ function TokenIterator(tokens) {
 	this.index  = 0;
 	this.count  = 0;
 	this.last   = 0;
-};
+}
 
 TokenIterator.prototype.next = function() {
 	var current = this.tokens[this.index];

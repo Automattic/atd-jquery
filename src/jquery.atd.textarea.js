@@ -9,11 +9,11 @@
 /* a variable to store textareas in */
 AtD.textareas = {};
 
-/* convienence method to restore the text area from the preview div */
+/* convenience method to restore the text area from the preview div */
 AtD.restoreTextArea = function(id) {
 	var options = AtD.textareas[id];
 
-	/* check if we're in the proofreading mode, if not... then retunr */
+	/* check if we're in the proofreading mode, if not... then return */
 	if (options == undefined || options['before'] == options['link'].html())
 		return;
 
@@ -33,7 +33,7 @@ AtD.restoreTextArea = function(id) {
 		content = jQuery('#' + id).html();
 
 	jQuery('#' + id).replaceWith( options['node'] );
-	jQuery('#' + id).val( content.replace(/\&lt\;/g, '<').replace(/\&gt\;/, '>').replace(/\&amp;/g, '&') );
+	jQuery('#' + id).val( _.unescape(content) );
 	jQuery('#' + id).height( options['height'] );
 
 	/* change the link text back to its original label */
@@ -42,14 +42,14 @@ AtD.restoreTextArea = function(id) {
  
 AtD.checkTextAreaCrossAJAX = function(id, linkId, after) {
 	AtD._checkTextArea(id, AtD.checkCrossAJAX, linkId, after);
-}
+};
 
 AtD.checkTextArea = function(id, linkId, after) {   
 	if (AtD.api_key == undefined || AtD.rpc == undefined)
 		alert("You need to set AtD.api_key and AtD.rpc to use AtD.checkTextArea()"); /* this message is for developers, no l10n needed */
 	else
 		AtD._checkTextArea(id, AtD.check, linkId, after);
-}
+};
 
 /* where the magic happens, checks the spelling or restores the form */
 AtD._checkTextArea = function(id, commChannel, linkId, after) {
@@ -61,7 +61,7 @@ AtD._checkTextArea = function(id, commChannel, linkId, after) {
 		var saveProperty = function(key, node) {
 			if (node.css(key) != "")
 				properties[key] = node.css(key);
-		}
+		};
 
 		var saveme = ['background-color', 'color', 'font-size', 'font-family', 'border-top-width', 'border-bottom-width', 'border-left-width', 'border-right-width', 'border-top-style', 'border-bottom-style', 'border-left-style', 'border-right-style', 'border-top-color', 'border-bottom-color', 'border-left-color', 'border-right-color', 'text-align', 'margin-top', 'margin-bottom', 'margin-left', 'margin-right', 'width', 'line-height', 'letter-spacing', 'left', 'right', 'top', 'bottom', 'position', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom' ];
 
@@ -104,7 +104,7 @@ AtD._checkTextArea = function(id, commChannel, linkId, after) {
 		var name = container.attr('name');
 
 		if (navigator.appName == 'Microsoft Internet Explorer') {
-			container.replaceWith( '<div id="' + id + '">' + container.val().replace(/\&/g, '&amp;').replace(/[\n\r\f]/gm, '<BR class="atd_remove_me">') + '</div>' );
+			container.replaceWith( '<div id="' + id + '">' + _.escape(container.val()).replace(/[\n\r\f]/gm, '<BR class="atd_remove_me">') + '</div>' );
 			div = jQuery('#' + id);
 			div.attr('style', options['node'].attr('style') );
 			div.attr('class', options['node'].attr('class') );
@@ -113,7 +113,7 @@ AtD._checkTextArea = function(id, commChannel, linkId, after) {
 			options['style']['font-family'] = undefined;
 		} 
 		else {
-			container.replaceWith( '<div id="' + id + '">' + container.val().replace(/\&/g, '&amp;') + '</div>' );
+			container.replaceWith( '<div id="' + id + '">' + _.escape(container.val()) + '</div>' );
 			div = jQuery('#' + id);
 			div.attr('style', options['node'].attr('style') );
 			div.attr('class', options['node'].attr('class') );
@@ -153,7 +153,7 @@ AtD._checkTextArea = function(id, commChannel, linkId, after) {
 				temp.html(content); 
 				AtD.core.removeWords(temp);
 
-				hidden.val(temp.html().replace(/\&lt\;/g, '<').replace(/\&gt\;/, '>').replace(/\&amp;/g, '&'));
+				hidden.val( _.unescape(temp.html()) );
 				inProgress = false;
 			}, 1500);
 		};
@@ -210,7 +210,7 @@ AtD._checkTextArea = function(id, commChannel, linkId, after) {
 			}
 		});
 	}
-}
+};
 
 jQuery.fn.addProofreader = function(options) {
 	this.id = 0;
